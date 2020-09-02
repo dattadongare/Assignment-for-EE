@@ -1,0 +1,123 @@
+<section>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="firstForm" (ngSubmit)="onSubmit()">
+
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label>Whats is the name ? </label>
+                            <textarea formControlName="name" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.name.errors }"></textarea>
+                            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                <div *ngIf="f.name.errors.required">name is required</div>
+                                <div *ngIf="f.name.errors.maxlength"> allowed 500 characters</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <div class="pt-1">Whats is the colors ? <span class="float-right" data-toggle="modal"
+                                    data-target="#addColorModal"><a>Adds</a></span></div>
+                            <div *ngFor="let order of colors;">
+                                <input formControlName="colors" type="radio" name="colors" [value]="order.name" />
+                                {{order.name}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label>Information </label>
+                            <textarea formControlName="info" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.info.errors }"></textarea>
+                            <div *ngIf="submitted && f.info.errors" class="invalid-feedback">
+                                <div *ngIf="f.info.errors.required">information is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <div class="pt-1">Whats is the Gender ? <span class="float-right" data-toggle="modal"
+                                    data-target="#addGenderModal"><a>Add</a></span></div>
+                            <div *ngFor="let item of genders;">
+                                <input formControlName="gender" type="radio" name="gender" [value]="item.name" />
+                                {{item.name}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary mt-3 mb-3">Submit</button>
+                    </div>
+                    <a class="float-right " *ngIf="submitted==true" class="btn btn-clear" title="Download JSON"
+                        [href]="downloadJsonHref" download="download.json">Download JSON</a>
+                </form>
+            </div>
+        </div>
+        <!-- color added modal -->
+        <div id="addColorModal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Color Name</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form [formGroup]="secondForm" (ngSubmit)="onSubmitColor()">
+                        <div class="modal-body">
+
+
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <input type="text" placeholder="enter color" formControlName="name"
+                                        class="form-control" [ngClass]="{ 'is-invalid': submitted && s.name.errors }" />
+                                    <div *ngIf="submitted && s.name.errors" class="invalid-feedback">
+                                        <div *ngIf="s.name.errors.required"> color name is required</div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <!-- gender added modal -->
+        <div id="addGenderModal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Gender Name</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form [formGroup]="thirdForm" (ngSubmit)="onSubmitGender()">
+                        <div class="modal-body">
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <input type="text" placeholder="enter Gender Name" formControlName="name"
+                                        class="form-control" [ngClass]="{ 'is-invalid': submitted && t.name.errors }" />
+                                    <div *ngIf="submitted && t.name.errors" class="invalid-feedback">
+                                        <div *ngIf="t.name.errors.required"> gender name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
